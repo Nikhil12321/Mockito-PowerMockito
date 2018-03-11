@@ -30,4 +30,11 @@ public class JustAnotherClass {
 
         return a + (int)b + c.size() + d.length();
     }
+
+    public int aFunctionWithCustomClassArgument(ExtraClass extraClass){
+
+        int answer = extraClass.getValueToBeShared();
+        answer++;
+        return answer;
+    }
 }

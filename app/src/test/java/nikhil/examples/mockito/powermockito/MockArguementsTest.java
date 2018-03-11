@@ -51,4 +51,58 @@ public class MockArguementsTest {
          */
         Assert.assertEquals(answer, 6);
     }
+
+    /*
+    To test doSomethingAmazing, we will have to mock
+        justAnotherClass.aFunctionWithManyArguments()
+        which accepts an object of ExtraClass.
+        If we want to mock this function, we would also have to mock the argument,
+        which is an object of ExtraClass.
+
+        We do this by using Argument Matcher  Mockito.any()
+     */
+    @Test
+    public void testDoSomethingAmazing() {
+
+        mockArguments = new MockArguments();
+
+        /*
+        Step 1
+            Mock JustAnotherClass
+         */
+        JustAnotherClass justAnotherClassMock = Mockito.mock(JustAnotherClass.class);
+
+        /*
+        Step 2
+            Mock the behaviour of function justAnotherClass.aFunctionWithCustomClassArgument,
+            To mock the argument of ExtraClass, we use Mockito.any() instead of Mockito.anyInt,
+            Mockito.anyString blaah blaah.
+
+            BUT., Mockito.any() needs to know what class the argument belongs to, so we
+            pass the class as argument to Mockito.any()
+         */
+        Mockito.when(justAnotherClassMock
+                .aFunctionWithCustomClassArgument(
+                        Mockito.any(ExtraClass.class))).thenReturn(10);
+
+
+        /*
+        Step 3
+            Set justAnotherClassMock
+         */
+        mockArguments.setJustAnotherClass(justAnotherClassMock);
+
+        /*
+        Step 4:
+            Call the function to be tested
+         */
+        int answer = mockArguments.doSomethingAmazing();
+
+        /*
+        Step 5
+            Verify the result. Since we are also doing answer++ in the function,
+            the returned value will be mocked return (which is 10) + 1 which is 11
+         */
+        Assert.assertEquals(answer, 11);
+    }
 }

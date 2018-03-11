@@ -35,7 +35,26 @@ public class MockArguments {
         this.justAnotherClass = justAnotherClass;
     }
 
-    // Bonus::TODO:: use of Mockito.any() on custom class
+    /*
+     Okay so now,
+        The below function calls justAnotherClass.aFunctionWithManyArguments()
+        which accepts an object of ExtraClass.
+        If we want to mock this function, we would also have to mock the argument,
+        which is an object of ExtraClass.
+        But how do we do that?
+
+        To mock an object of a custom class, we will use Mockito.any() in the test function.
+      */
+    public int doSomethingAmazing() {
+
+        justAnotherClass =  new JustAnotherClass();
+
+        ExtraClass extraClass = new ExtraClass();
+        extraClass.setValueToBeShared(10);
+
+        int answer = justAnotherClass.aFunctionWithCustomClassArgument(extraClass);
+        return  answer;
+    }
 
 
 }
